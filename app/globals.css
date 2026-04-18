@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+:root {
+  /* Prototype colors */
+  --navy: #0A2240;
+  --navy2: #0F3060;
+  --navy3: #1a4a8a;
+  --saffron: #E8821A;
+  --saffron2: #F59E0B;
+  --white: #ffffff;
+  --off: #F7F6F3;
+  --off2: #EEEDEA;
+  --text: #1C1C1A;
+  --text2: #52524E;
+  --text3: #8A8A86;
+  --border: rgba(0,0,0,0.1);
+  --border2: rgba(0,0,0,0.18);
+  --blue: #185FA5;
+  --blue-bg: #E6F1FB;
+  --green: #1D6A2D;
+  --green-bg: #EAF3DE;
+  --amber: #7A4200;
+  --amber-bg: #FEF3DC;
+  --red: #A32D2D;
+  --red-bg: #FCEBEB;
+
+  /* Design system */
+  --radius: 8px;
+  --radius-lg: 12px;
+  
+  /* Fonts */
+  --font: 'Mukta', system-ui, sans-serif;
+  --font-display: 'Playfair Display', serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  font-size: 15px;
+  color: var(--text);
+  background: var(--off);
+  line-height: 1.55;
+}
+
+@theme inline {
+  --font-sans: var(--font);
+  --font-serif: var(--font-display);
+  --color-background: var(--off);
+  --color-foreground: var(--text);
+}
+
+@custom-variant dark (&:is(.dark *));

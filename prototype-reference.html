@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VMC — Vadodara Municipal Corporation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0A2240;--navy2:#0F3060;--navy3:#1a4a8a;
+  --saffron:#E8821A;--saffron2:#F59E0B;
+  --white:#ffffff;--off:#F7F6F3;--off2:#EEEDEA;
+  --text:#1C1C1A;--text2:#52524E;--text3:#8A8A86;
+  --border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.18);
+  --blue:#185FA5;--blue-bg:#E6F1FB;
+  --green:#1D6A2D;--green-bg:#EAF3DE;
+  --amber:#7A4200;--amber-bg:#FEF3DC;
+  --red:#A32D2D;--red-bg:#FCEBEB;
+  --r:8px;--rl:12px;
+  --font:'Mukta',system-ui,sans-serif;
+  --font-display:'Playfair Display',serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-size:15px;color:var(--text);background:var(--off);line-height:1.55}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--navy);position:sticky;top:0;z-index:200;border-bottom:3px solid var(--saffron)}
+.topbar-inner{max-width:1140px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:12px;height:60px}
+.logo-block{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.logo-emblem{width:38px;height:38px;background:var(--saffron);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;color:var(--navy);font-weight:700;flex-shrink:0}
+.logo-text{color:#fff}
+.logo-text-main{font-size:14px;font-weight:700;letter-spacing:0.02em;line-height:1.2}
+.logo-text-sub{font-size:10px;opacity:0.6;letter-spacing:0.05em;font-weight:400}
+.top-nav{display:flex;align-items:center;gap:2px;margin-left:auto}
+.tnav{padding:6px 13px;border-radius:var(--r);color:rgba(255,255,255,0.75);font-size:13px;font-weight:500;cursor:pointer;border:none;background:transparent;font-family:var(--font);transition:all 0.15s;text-decoration:none}
+.tnav:hover{color:#fff;background:rgba(255,255,255,0.1)}
+.tnav.active{color:#fff;background:rgba(255,255,255,0.15)}
+.login-btn{display:flex;align-items:center;gap:6px;padding:7px 16px;border-radius:var(--r);border:1.5px solid rgba(232,130,26,0.6);background:rgba(232,130,26,0.12);color:rgba(255,255,255,0.9);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all 0.15s;margin-left:6px}
+.login-btn:hover{background:var(--saffron);border-color:var(--saffron);color:#fff}
+.login-btn svg{width:15px;height:15px;flex-shrink:0}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,34,64,0.7);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal-box{background:#fff;border-radius:16px;padding:32px 28px;width:100%;max-width:360px;position:relative;animation:modalIn 0.2s ease}
+@keyframes modalIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--text3);line-height:1}
+.modal-logo{width:48px;height:48px;background:var(--navy);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-family:var(--font-display);font-size:20px;color:var(--saffron);font-weight:700}
+.modal-title{text-align:center;font-size:17px;font-weight:700;margin-bottom:4px}
+.modal-sub{text-align:center;font-size:12px;color:var(--text3);margin-bottom:20px}
+.modal-tabs{display:flex;gap:6px;margin-bottom:18px;background:var(--off2);padding:4px;border-radius:var(--r)}
+.modal-tab{flex:1;padding:7px;text-align:center;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;color:var(--text2);transition:all 0.15s}
+.modal-tab.active{background:#fff;color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,0.1)}
+.mfgrp{margin-bottom:12px}
+.mflbl{font-size:11px;font-weight:700;color:var(--text2);margin-bottom:4px;display:block;text-transform:uppercase;letter-spacing:0.05em}
+.mfinput{width:100%;padding:9px 12px;border:1.5px solid var(--border2);border-radius:var(--r);font-size:14px;font-family:var(--font);color:var(--text);transition:border-color 0.15s;background:#fff}
+.mfinput:focus{outline:none;border-color:var(--navy)}
+.mbtn{width:100%;padding:11px;border:none;border-radius:var(--r);background:var(--navy);color:#fff;font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;margin-top:4px;transition:background 0.15s}
+.mbtn:hover{background:var(--navy2)}
+.modal-hint{font-size:11px;color:var(--text3);text-align:center;margin-top:10px}
+.modal-err{background:var(--red-bg);color:var(--red);padding:8px 12px;border-radius:var(--r);font-size:12px;margin-bottom:10px;display:none}
+
+/* ── PAGES ── */
+.page{display:none}.page.active{display:block}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.main-area{padding:24px 0 0}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,#1a3060 100%);color:#fff;border-radius:16px;padding:36px 32px;margin-bottom:20px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:220px;height:220px;border-radius:50%;background:rgba(232,130,26,0.08);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-60px;right:60px;width:140px;height:140px;border-radius:50%;background:rgba(232,130,26,0.05);pointer-events:none}
+.hero-eyebrow{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;opacity:0.55;margin-bottom:8px;font-weight:500}
+.hero-title{font-family:var(--font-display);font-size:30px;line-height:1.2;margin-bottom:10px}
+.hero-title span{color:var(--saffron2)}
+.hero-sub{font-size:13px;opacity:0.75;line-height:1.75;max-width:520px;margin-bottom:24px}
+.hero-stats{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid rgba(255,255,255,0.12);padding-top:20px}
+.hstat{padding:0 24px 0 0;margin-right:24px;border-right:1px solid rgba(255,255,255,0.12)}
+.hstat:last-child{border-right:none}
+.hstat-val{font-size:22px;font-weight:700;color:var(--saffron2)}
+.hstat-lbl{font-size:10px;opacity:0.55;letter-spacing:0.06em;text-transform:uppercase;margin-top:2px}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.hbtn{padding:11px 22px;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all 0.15s;border:none}
+.hbtn-primary{background:var(--saffron);color:var(--navy);box-shadow:0 2px 12px rgba(232,130,26,0.3)}
+.hbtn-primary:hover{background:var(--saffron2);transform:translateY(-1px)}
+.hbtn-outline{background:rgba(255,255,255,0.1);color:#fff;border:1.5px solid rgba(255,255,255,0.3)}
+.hbtn-outline:hover{background:rgba(255,255,255,0.18)}
+
+/* ── DEV CARDS ── */
+.section-label{font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
+.dev-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:20px}
+.dev-card{background:#fff;border:0.5px solid var(--border);border-radius:var(--rl);padding:16px;transition:transform 0.15s,box-shadow 0.15s}
+.dev-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.08)}
+.dev-icon{width:38px;height:38px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px}
+.dev-title{font-size:13px;font-weight:700;margin-bottom:4px}
+.dev-body{font-size:12px;color:var(--text2);line-height:1.6}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--off2);margin-bottom:0}
+.tab{padding:10px 18px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text3);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.15s}
+.tab.active{color:var(--navy);border-bottom-color:var(--saffron)}
+.tab:hover:not(.active){color:var(--text)}
+.tc{display:none;padding-top:18px}.tc.active{display:block}
+
+/* ── CARDS ── */
+.card{background:#fff;border:0.5px solid var(--border);border-radius:var(--rl);padding:16px;margin-bottom:14px}
+.card-title{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+
+/* ── METRICS ── */
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.metric{background:var(--off);border-radius:var(--r);padding:12px 14px}
+.mlbl{font-size:11px;color:var(--text2);margin-bottom:4px}
+.mval{font-size:21px;font-weight:700}
+.mval.blue{color:var(--blue)}.mval.green{color:var(--green)}.mval.amber{color:var(--amber)}.mval.red{color:var(--red)}
+
+/* ── BADGES ── */
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700}
+.b-open{background:var(--blue-bg);color:var(--blue)}.b-prog{background:var(--amber-bg);color:var(--amber)}
+.b-done{background:var(--green-bg);color:var(--green)}.b-esc{background:var(--red-bg);color:var(--red)}
+.b-crit{background:#FCEBEB;color:#A32D2D}.b-high{background:#FEF3DC;color:#7A4200}
+.b-med{background:#E6F1FB;color:#185FA5}.b-low{background:#EAF3DE;color:#1D6A2D}
+
+/* ── FORMS ── */
+.fgrp{margin-bottom:12px}
+.flbl{font-size:11px;font-weight:700;color:var(--text2);margin-bottom:4px;display:block;text-transform:uppercase;letter-spacing:0.04em}
+input,select,textarea{width:100%;padding:9px 11px;border:1.5px solid var(--border2);border-radius:var(--r);font-size:13px;font-family:var(--font);color:var(--text);background:#fff;transition:border-color 0.15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(10,34,64,0.08)}
+textarea{resize:vertical;min-height:80px}
+.btn{padding:8px 18px;border:1.5px solid var(--border2);border-radius:var(--r);background:transparent;cursor:pointer;font-size:13px;font-family:var(--font);font-weight:600;color:var(--text);transition:all 0.15s}
+.btn:hover{background:var(--off)}
+.btn-primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn-primary:hover{background:var(--navy2)}
+.btn-saffron{background:var(--saffron);color:#fff;border-color:var(--saffron)}
+.btn-saffron:hover{background:#d97218}
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn-success{background:var(--green-bg);color:var(--green);border-color:rgba(29,106,45,0.25)}
+.btn-danger{background:var(--red-bg);color:var(--red);border-color:rgba(163,45,45,0.25)}
+
+/* ── TABLE ── */
+.ctable{width:100%;border-collapse:collapse;font-size:12px}
+.ctable th{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;padding:6px 8px;border-bottom:1.5px solid var(--off2);text-align:left}
+.ctable td{padding:10px 8px;border-bottom:0.5px solid var(--border);vertical-align:middle}
+.ctable tr:last-child td{border-bottom:none}
+.ctable tbody tr:hover td{background:var(--off)}
+
+/* ── SLA BAR ── */
+.sla-bar{height:5px;border-radius:3px;background:var(--off2);overflow:hidden;margin-top:3px}
+.sla-fill{height:100%;border-radius:3px}
+
+/* ── TIMELINE ── */
+.tl{padding-left:14px;border-left:2px solid var(--off2)}
+.tli{padding:0 0 12px 14px;position:relative}
+.tld{position:absolute;left:-20px;top:3px;width:10px;height:10px;border-radius:50%;border:2px solid var(--border2);background:#fff}
+.tld.done{background:var(--green);border-color:var(--green)}
+.tld.cur{background:var(--amber);border-color:var(--amber)}
+
+/* ── BAR CHART ── */
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.blbl{min-width:120px;font-size:11px;color:var(--text2)}
+.btrk{flex:1;height:12px;background:var(--off2);border-radius:4px;overflow:hidden}
+.bfil{height:100%;border-radius:4px}
+.bnum{min-width:24px;text-align:right;font-size:11px;color:var(--text3)}
+
+/* ── NOTICE ── */
+.notice{padding:12px 16px;border-radius:var(--r);font-size:13px;margin-bottom:12px;font-weight:500}
+.notice-ok{background:var(--green-bg);color:var(--green);border:1px solid rgba(29,106,45,0.2)}
+.notice-warn{background:var(--amber-bg);color:var(--amber)}
+.notice-info{background:var(--blue-bg);color:var(--blue)}
+
+/* ── FILTER BAR ── */
+.filter-bar{background:#fff;border:0.5px solid var(--border);border-radius:var(--rl);padding:12px 16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.filter-bar select,.filter-bar input[type="date"]{width:auto;flex:1;min-width:100px;max-width:150px;font-size:12px;padding:6px 8px}
+.filter-lbl{font-size:11px;font-weight:700;color:var(--text3);white-space:nowrap}
+
+/* ── CHANNELS PAGE ── */
+.ch-hero{background:var(--navy);color:#fff;border-radius:16px;padding:28px 32px;margin-bottom:20px;border-bottom:4px solid var(--saffron)}
+.channel-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:20px}
+.ch-card{background:#fff;border:0.5px solid var(--border);border-radius:var(--rl);padding:20px 16px;text-align:center;transition:all 0.2s;position:relative;overflow:hidden}
+.ch-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.1);border-color:var(--border2)}
+.ch-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--saffron);opacity:0;transition:opacity 0.2s}
+.ch-card:hover::before{opacity:1}
+.ch-num{position:absolute;top:12px;right:14px;font-size:11px;font-weight:700;color:var(--text3);background:var(--off);padding:2px 7px;border-radius:20px}
+.ch-icon-wrap{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 12px}
+.ch-name{font-size:14px;font-weight:700;margin-bottom:6px;color:var(--navy)}
+.ch-detail{font-size:11px;color:var(--text2);line-height:1.8}
+.ch-tag{display:inline-block;margin-top:8px;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700;background:var(--off2);color:var(--text3)}
+.flow-step{flex:1;min-width:100px;text-align:center;padding:14px 8px;background:#fff;border-radius:var(--rl);border:0.5px solid var(--border)}
+.flow-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+.flow-title{font-size:12px;font-weight:700;margin-bottom:3px}
+.flow-sub{font-size:11px;color:var(--text2)}
+
+/* ── IVR PAGE ── */
+.ivr-hero{background:linear-gradient(135deg,#0a1f0a,#1a3a1a);color:#fff;border-radius:16px;padding:28px 32px;margin-bottom:20px;border-bottom:4px solid #4CAF50}
+.phone-frame{background:#111;border-radius:28px;padding:16px;max-width:300px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.phone-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:0 4px}
+.phone-number{font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.05em}
+.phone-status{font-size:11px;color:#4CAF50;font-weight:600}
+.phone-screen{background:#001a00;border-radius:12px;padding:16px;min-height:180px;font-family:'Courier New',monospace;font-size:12px;color:#4CAF50;line-height:1.9;white-space:pre-line;margin-bottom:12px;border:1px solid #1a3a1a}
+.phone-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.phone-key{padding:13px 8px;border:1px solid #333;border-radius:10px;background:#1a1a1a;color:#fff;font-size:15px;font-weight:700;text-align:center;cursor:pointer;transition:all 0.12s;font-family:var(--font);user-select:none}
+.phone-key:hover{background:#2a2a2a;border-color:#555}
+.phone-key:active{background:#333;transform:scale(0.94)}
+.phone-key.star,.phone-key.hash{font-size:20px;color:#888}
+.phone-actions{display:flex;gap:8px}
+.phone-hangup{flex:1;padding:10px;background:#8B0000;color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);transition:background 0.15s}
+.phone-hangup:hover{background:#A00}
+.phone-back{flex:1;padding:10px;background:#1a1a1a;color:#aaa;border:1px solid #333;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font)}
+.phone-redial{flex:1;padding:10px;background:#003300;color:#4CAF50;border:1px solid #1a4a1a;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);transition:background 0.15s}
+.phone-redial:hover{background:#004400}
+.ivr-log-box{background:#fff;border:0.5px solid var(--border);border-radius:var(--rl);padding:14px;margin-bottom:14px}
+.ivr-log-entry{padding:5px 0;border-bottom:0.5px solid var(--off2);font-size:11px;color:var(--text2);display:flex;gap:8px}
+.ivr-log-entry:last-child{border-bottom:none}
+.ivr-log-time{color:var(--text3);flex-shrink:0;font-family:'Courier New',monospace}
+.ivr-tree-card{background:#fff;border:0.5px solid var(--border);border-radius:var(--rl);padding:16px}
+.ivr-tree-line{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;font-size:12px;line-height:1.5}
+.ivr-key-pill{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--navy);color:#fff;border-radius:4px;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+
+/* ── OFFICER / ADMIN ── */
+.off-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.off-name{font-size:17px;font-weight:700}
+.off-meta{font-size:12px;color:var(--text2);margin-top:2px}
+.off-tabs{display:flex;gap:4px;margin-bottom:0;background:var(--off2);padding:4px;border-radius:var(--r);width:fit-content}
+.off-tab{padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;color:var(--text2);transition:all 0.15s}
+.off-tab.active{background:#fff;color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,0.1)}
+
+/* ── FOOTER ── */
+.footer{background:var(--navy);color:rgba(255,255,255,0.8);margin-top:48px;padding:0}
+.footer-top{padding:40px 0 32px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+.footer-brand{margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.footer-emblem{width:42px;height:42px;background:var(--saffron);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:18px;color:var(--navy);font-weight:700;flex-shrink:0}
+.footer-brand-text{font-size:14px;font-weight:700;color:#fff;line-height:1.3}
+.footer-brand-sub{font-size:10px;opacity:0.5;letter-spacing:0.06em;margin-top:2px}
+.footer-desc{font-size:12px;line-height:1.8;opacity:0.6;margin-bottom:20px}
+.footer-contact-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;font-size:12px}
+.footer-contact-icon{width:16px;flex-shrink:0;opacity:0.5;margin-top:1px}
+.footer-contact-val{opacity:0.7;line-height:1.5}
+.footer-contact-val strong{color:#fff;opacity:1;display:block;font-weight:600}
+.footer-col-title{font-size:11px;font-weight:700;color:var(--saffron2);letter-spacing:0.09em;text-transform:uppercase;margin-bottom:14px}
+.footer-link{display:block;font-size:12px;color:rgba(255,255,255,0.6);text-decoration:none;padding:3px 0;transition:color 0.15s;cursor:pointer}
+.footer-link:hover{color:#fff}
+.footer-divider{border:none;border-top:0.5px solid rgba(255,255,255,0.1);margin:0}
+.footer-bottom{padding:16px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-bottom-text{font-size:11px;opacity:0.45}
+.footer-social{display:flex;gap:8px}
+.social-pill{display:flex;align-items:center;gap:5px;padding:5px 10px;border:0.5px solid rgba(255,255,255,0.15);border-radius:20px;font-size:11px;color:rgba(255,255,255,0.6);cursor:pointer;transition:all 0.15s;text-decoration:none}
+.social-pill:hover{border-color:rgba(255,255,255,0.4);color:#fff}
+.social-pill svg{width:12px;height:12px;flex-shrink:0}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}.dev-grid{grid-template-columns:1fr 1fr}.channel-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.metrics{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.three{grid-template-columns:1fr 1fr}.hero-title{font-size:22px}.footer-grid{grid-template-columns:1fr}.channel-grid{grid-template-columns:1fr}.dev-grid{grid-template-columns:1fr}.top-nav .tnav{display:none}.hero{padding:22px 18px}}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ TOPBAR ═══════════════ -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo-block" onclick="goPage('home')" href="#">
+      <div class="logo-emblem">V</div>
+      <div class="logo-text">
+        <div class="logo-text-main">Vadodara Municipal Corporation</div>
+        <div class="logo-text-sub">GOVERNMENT OF GUJARAT · ESTABLISHED 1950</div>
+      </div>
+    </a>
+    <div class="top-nav">
+      <span class="tnav active" id="tnav-home" onclick="goPage('home')">Home</span>
+      <span class="tnav" id="tnav-channels" onclick="goPage('channels')">Channels</span>
+      <span class="tnav" id="tnav-ivr" onclick="goPage('ivr')">IVR</span>
+      <button class="login-btn" onclick="openLogin('officer')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        Officer login
+      </button>
+      <button class="login-btn" onclick="openLogin('admin')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Admin login
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ LOGIN MODAL ═══════════════ -->
+<div class="modal-overlay" id="login-modal" onclick="closeLoginOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeLogin()">×</button>
+    <div class="modal-logo">V</div>
+    <div class="modal-title">VMC Staff Portal</div>
+    <div class="modal-sub">Login with your VMC-issued credentials</div>
+    <div class="modal-tabs">
+      <div class="modal-tab active" id="mtab-officer" onclick="switchModalTab('officer')">Officer</div>
+      <div class="modal-tab" id="mtab-admin" onclick="switchModalTab('admin')">Admin / Commissioner</div>
+    </div>
+    <div id="modal-err" class="modal-err">Invalid credentials. Please try again.</div>
+    <div class="mfgrp">
+      <label class="mflbl" id="mlbl-id">Officer ID</label>
+      <input class="mfinput" id="m-id" placeholder="VMC-OFF-042" autocomplete="username">
+    </div>
+    <div class="mfgrp">
+      <label class="mflbl">Password</label>
+      <input class="mfinput" id="m-pw" type="password" placeholder="Enter password" autocomplete="current-password">
+    </div>
+    <button class="mbtn" onclick="doLogin()">Login →</button>
+    <div class="modal-hint" id="modal-hint">Demo — Officer: VMC-OFF-042 / 1234</div>
+  </div>
+</div>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<div class="main-area">
+<div class="wrap">
+
+<!-- ════ HOME PAGE ════ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-eyebrow">Vadodara Municipal Corporation — Nagarpalika</div>
+    <div class="hero-title">Baroda — <span>City of Culture</span> &amp; Progress</div>
+    <div class="hero-sub">Vadodara, Gujarat's third-largest and fastest-growing city, is a vibrant hub of heritage, industry, and civic excellence. VMC proudly serves over 20 lakh citizens across 76 wards, delivering smart, transparent, and responsive municipal services.</div>
+    <div class="hero-cta">
+      <button class="hbtn hbtn-primary" onclick="switchTab('submit')">Register a complaint</button>
+      <button class="hbtn hbtn-outline" onclick="switchTab('track')">Track my complaint</button>
+      <button class="hbtn hbtn-outline" onclick="goPage('channels')">All channels</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-val">76</div><div class="hstat-lbl">Wards</div></div>
+      <div class="hstat"><div class="hstat-val">20L+</div><div class="hstat-lbl">Citizens served</div></div>
+      <div class="hstat"><div class="hstat-val">4,200+</div><div class="hstat-lbl">VMC staff</div></div>
+      <div class="hstat"><div class="hstat-val">83%</div><div class="hstat-lbl">Resolution rate</div></div>
+      <div class="hstat"><div class="hstat-val">Smart City</div><div class="hstat-lbl">Mission member</div></div>
+    </div>
+  </div>
+
+  <div class="section-label">City development highlights</div>
+  <div class="dev-grid">
+    <div class="dev-card"><div class="dev-icon" style="background:var(--blue-bg);color:var(--blue)">🛣️</div><div class="dev-title">Smart roads project</div><div class="dev-body">340 km resurfaced under Smart City Mission 2023–24. GPS-tagged pothole detection now active citywide.</div></div>
+    <div class="dev-card"><div class="dev-icon" style="background:var(--green-bg);color:var(--green)">💧</div><div class="dev-title">24×7 water supply</div><div class="dev-body">Continuous supply to 18 of 19 zones. 19th zone upgrade underway under AMRUT 2.0 with ₹240 crore investment.</div></div>
+    <div class="dev-card"><div class="dev-icon" style="background:var(--amber-bg);color:var(--amber)">☀️</div><div class="dev-title">Solar street lights</div><div class="dev-body">12,000+ solar LED street lights installed citywide, delivering 40% reduction in electricity expenditure.</div></div>
+    <div class="dev-card"><div class="dev-icon" style="background:#EEEDFE;color:#534AB7">💻</div><div class="dev-title">Digital governance</div><div class="dev-body">700+ citizen services available on eVadodara portal. 98% of property tax collection is now fully digital.</div></div>
+    <div class="dev-card"><div class="dev-icon" style="background:var(--green-bg);color:var(--green)">🏆</div><div class="dev-title">Swachh Bharat rank</div><div class="dev-body">Ranked among top 10 cleanest cities in Gujarat. ODF++ certified with Green Star municipal rating achieved.</div></div>
+    <div class="dev-card"><div class="dev-icon" style="background:#FAECE7;color:#993C1D">🏛️</div><div class="dev-title">Heritage conservation</div><div class="dev-body">Laxmi Vilas Palace, Kirti Mandir, Sayaji Baug and 40+ heritage structures actively restored and maintained.</div></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" id="tab-submit" onclick="switchTab('submit')">Submit complaint</div>
+    <div class="tab" id="tab-track" onclick="switchTab('track')">Track complaint</div>
+    <div class="tab" id="tab-stats" onclick="switchTab('stats')">Public statistics</div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="tc active" id="tc-submit">
+    <div id="submit-ok" class="notice notice-ok" style="display:none"></div>
+    <div class="two">
+      <div>
+        <div class="card">
+          <div class="card-title">Your details</div>
+          <div class="two" style="gap:10px">
+            <div class="fgrp"><label class="flbl">Full name *</label><input id="f-name" placeholder="e.g. Rajesh Patel"></div>
+            <div class="fgrp"><label class="flbl">Mobile number *</label><input id="f-phone" placeholder="10-digit" maxlength="10"></div>
+          </div>
+          <div class="fgrp"><label class="flbl">Email (optional)</label><input id="f-email" placeholder="your@email.com" type="email"></div>
+          <div class="two" style="gap:10px">
+            <div class="fgrp"><label class="flbl">Ward / area *</label>
+              <select id="f-ward">
+                <option value="">Select ward</option>
+                <option>Ward 1 — Sayajigunj</option><option>Ward 2 — Alkapuri</option>
+                <option>Ward 3 — Fatehgunj</option><option>Ward 4 — Karelibaug</option>
+                <option>Ward 5 — Manjalpur</option><option>Ward 6 — Waghodiya</option>
+                <option>Ward 7 — Subhanpura</option><option>Ward 8 — Gorwa</option>
+              </select>
+            </div>
+            <div class="fgrp"><label class="flbl">Channel</label>
+              <select id="f-src">
+                <option>Web form</option><option>WhatsApp</option><option>SMS</option>
+                <option>Phone / IVR</option><option>Instagram</option><option>Twitter / X</option><option>Walk-in</option>
+              </select>
+            </div>
+          </div>
+          <div class="fgrp"><label class="flbl">Landmark / address *</label><input id="f-addr" placeholder="Nearest landmark or street name"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Complaint details</div>
+          <div class="fgrp"><label class="flbl">Category *</label>
+            <select id="f-cat" onchange="onCatChange()">
+              <option value="">Select category</option>
+              <option>Roads &amp; Potholes</option><option>Water Supply</option>
+              <option>Drainage &amp; Sewage</option><option>Garbage Collection</option>
+              <option>Street Lights</option><option>Illegal Construction</option>
+              <option>Stray Animals</option><option>Tree Cutting / Falling</option>
+              <option>Park &amp; Garden</option><option>Mosquito / Pest Control</option>
+              <option>Encroachment</option><option>Birth / Death Certificate</option>
+            </select>
+          </div>
+          <div class="two" style="gap:10px">
+            <div class="fgrp"><label class="flbl">Department (auto)</label><input id="f-dept" readonly style="background:var(--off)"></div>
+            <div class="fgrp"><label class="flbl">Priority (auto)</label><input id="f-priority" readonly style="background:var(--off)"></div>
+          </div>
+          <div class="fgrp"><label class="flbl">Description *</label><textarea id="f-desc" placeholder="Describe clearly — location, severity, time of occurrence…"></textarea></div>
+          <button class="btn btn-primary" onclick="submitComplaint()" style="width:100%;padding:12px;font-size:14px;letter-spacing:0.02em">Submit &amp; get Complaint ID →</button>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">Live city stats</div>
+          <div class="three" style="gap:8px;margin-bottom:12px">
+            <div class="metric" style="padding:10px"><div class="mlbl">Open</div><div class="mval blue" style="font-size:18px" id="ps-open">—</div></div>
+            <div class="metric" style="padding:10px"><div class="mlbl">Resolved</div><div class="mval green" style="font-size:18px" id="ps-res">—</div></div>
+            <div class="metric" style="padding:10px"><div class="mlbl">Avg time</div><div class="mval" style="font-size:18px">28h</div></div>
+          </div>
+          <div class="card-title">By category</div>
+          <div id="pub-bars"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Emergency contacts</div>
+          <table style="width:100%;font-size:12px;border-collapse:collapse">
+            <tr style="border-bottom:0.5px solid var(--off2)"><td style="padding:8px 0;color:var(--text2)">IVR helpline (toll free)</td><td style="padding:8px 0;text-align:right;font-weight:700;color:var(--blue)">1800-233-XXXX</td></tr>
+            <tr style="border-bottom:0.5px solid var(--off2)"><td style="padding:8px 0;color:var(--text2)">WhatsApp</td><td style="padding:8px 0;text-align:right;font-weight:700">+91 9XXX-XXXXXX</td></tr>
+            <tr style="border-bottom:0.5px solid var(--off2)"><td style="padding:8px 0;color:var(--text2)">SMS keyword</td><td style="padding:8px 0;text-align:right;font-weight:700">COMPLAIN to 56677</td></tr>
+            <tr style="border-bottom:0.5px solid var(--off2)"><td style="padding:8px 0;color:var(--text2)">Water emergency</td><td style="padding:8px 0;text-align:right;font-weight:700;color:var(--red)">1800-XXX-WATER</td></tr>
+            <tr><td style="padding:8px 0;color:var(--text2)">Email</td><td style="padding:8px 0;text-align:right;font-weight:700">complaints@vmc.gov.in</td></tr>
+          </table>
+          <button class="btn" style="width:100%;margin-top:10px;font-size:12px" onclick="goPage('ivr')">Try IVR simulator →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRACK -->
+  <div class="tc" id="tc-track">
+    <div class="two">
+      <div class="card">
+        <div class="card-title">Track your complaint</div>
+        <div class="fgrp"><label class="flbl">Complaint ID</label><input id="trk-id" placeholder="VMC-2024-00101" style="text-transform:uppercase;font-size:15px;font-weight:600;letter-spacing:0.05em"></div>
+        <button class="btn btn-primary" onclick="doTrack()" style="width:100%;padding:11px">Track now →</button>
+        <div style="margin-top:10px;font-size:11px;color:var(--text3)">Sample IDs: VMC-2024-00101 · VMC-2024-00102 · VMC-2024-00104</div>
+      </div>
+      <div id="trk-result"></div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="tc" id="tc-stats">
+    <div class="metrics">
+      <div class="metric"><div class="mlbl">Total 2024</div><div class="mval">1,248</div></div>
+      <div class="metric"><div class="mlbl">Resolved</div><div class="mval green">1,041</div></div>
+      <div class="metric"><div class="mlbl">Resolution rate</div><div class="mval green">83%</div></div>
+      <div class="metric"><div class="mlbl">Avg resolution</div><div class="mval">28h</div></div>
+    </div>
+    <div class="two">
+      <div class="card"><div class="card-title">By category</div><div id="pub-stats-cat"></div></div>
+      <div class="card"><div class="card-title">By ward</div><div id="pub-stats-ward"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ CHANNELS PAGE ════ -->
+<div class="page" id="page-channels">
+  <div class="ch-hero">
+    <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;margin-bottom:6px;font-weight:500">9 ways to reach VMC</div>
+    <div style="font-family:var(--font-display);font-size:24px;font-weight:700;margin-bottom:8px">Every complaint, one system</div>
+    <div style="font-size:13px;opacity:0.7;line-height:1.7;max-width:540px">Register your complaint through any channel below. You will receive a unique VMC Complaint ID by SMS within minutes. All channels feed into the same unified system.</div>
+  </div>
+
+  <div class="channel-grid">
+    <div class="ch-card">
+      <div class="ch-num">01</div>
+      <div class="ch-icon-wrap" style="background:#E8F5E9;color:#1B5E20">📞</div>
+      <div class="ch-name">IVR Helpline</div>
+      <div class="ch-detail"><strong>1800-233-XXXX</strong><br>Toll free · 24×7<br>Gujarati, Hindi &amp; English<br>Automated + operator</div>
+      <div class="ch-tag">Most accessible</div>
+      <button class="btn btn-sm" style="width:100%;margin-top:10px" onclick="goPage('ivr')">Try IVR demo →</button>
+    </div>
+    <div class="ch-card">
+      <div class="ch-num">02</div>
+      <div class="ch-icon-wrap" style="background:#E8F5E9;color:#1B5E20">💬</div>
+      <div class="ch-name">WhatsApp</div>
+      <div class="ch-detail"><strong>+91 9XXX-XXXXXX</strong><br>Send "COMPLAIN" to start<br>Photos &amp; GPS location<br>24×7 chatbot + human</div>
+      <div class="ch-tag">Supports photos</div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-num">03</div>
+      <div class="ch-icon-wrap" style="background:#FFF8E1;color:#E65100">📩</div>
+      <div class="ch-name">SMS</div>
+      <div class="ch-detail"><strong>Send to 56677</strong><br>Format: COMPLAIN [area]<br>Works on any phone<br>No smartphone needed</div>
+      <div class="ch-tag">Works on all phones</div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-num">04</div>
+      <div class="ch-icon-wrap" style="background:#E3F2FD;color:#0D47A1">🌐</div>
+      <div class="ch-name">Web form</div>
+      <div class="ch-detail"><strong>This portal</strong><br>Full form + photo upload<br>No login required<br>Real-time tracking</div>
+      <div class="ch-tag">You are here</div>
+      <button class="btn btn-sm btn-primary" style="width:100%;margin-top:10px" onclick="goPage('home')">Open form →</button>
+    </div>
+    <div class="ch-card">
+      <div class="ch-num">05</div>
+      <div class="ch-icon-wrap" style="background:#FCE4EC;color:#880E4F">📷</div>
+      <div class="ch-name">Instagram</div>
+      <div class="ch-detail"><strong>@VMCVadodara</strong><br>DM or tag in post<br>Monitored 9am–6pm<br>Photos auto-extracted</div>
+      <div class="ch-tag">Social media</div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-num">06</div>
+      <div class="ch-icon-wrap" style="background:#E0F7FA;color:#006064">🐦</div>
+      <div class="ch-name">Twitter / X</div>
+      <div class="ch-detail"><strong>@VMCVadodara</strong><br>Tweet or Direct Message<br>2-hour response target<br>Monitored 9am–6pm</div>
+      <div class="ch-tag">2hr response</div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-num">07</div>
+      <div class="ch-icon-wrap" style="background:#F3E5F5;color:#4A148C">🏢</div>
+      <div class="ch-name">Walk-in office</div>
+      <div class="ch-detail"><strong>VMC Main Office</strong><br>Khanderao Market, Vadodara<br>Mon–Sat · 10am–6pm<br>Token system · Same-day ID</div>
+      <div class="ch-tag">In-person</div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-num">08</div>
+      <div class="ch-icon-wrap" style="background:#E8EAF6;color:#1A237E">📱</div>
+      <div class="ch-name">VMC Mobile App</div>
+      <div class="ch-detail"><strong>Android &amp; iOS</strong><br>GPS auto-detects ward<br>Photo &amp; video upload<br>Push notifications on status</div>
+      <div class="ch-tag">Recommended</div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-num">09</div>
+      <div class="ch-icon-wrap" style="background:#EFEBE9;color:#3E2723">✉️</div>
+      <div class="ch-name">Email</div>
+      <div class="ch-detail"><strong>complaints@vmc.gov.in</strong><br>Include name, ward &amp; mobile<br>Acknowledgement in 24h<br>Attach photos/documents</div>
+      <div class="ch-tag">With attachments</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:20px">
+    <div class="card-title">Complaint journey — any channel, same system</div>
+    <div style="display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;margin-top:8px">
+      <div class="flow-step"><div class="flow-num">1</div><div class="flow-title">Contact VMC</div><div class="flow-sub">Via any of the 9 channels, any time of day</div></div>
+      <div style="display:flex;align-items:center;color:var(--saffron);font-size:20px;font-weight:700">→</div>
+      <div class="flow-step"><div class="flow-num">2</div><div class="flow-title">ID generated</div><div class="flow-sub">Unique VMC ID issued, SMS sent to citizen</div></div>
+      <div style="display:flex;align-items:center;color:var(--saffron);font-size:20px;font-weight:700">→</div>
+      <div class="flow-step"><div class="flow-num">3</div><div class="flow-title">Officer assigned</div><div class="flow-sub">Auto-matched by ward + category + workload</div></div>
+      <div style="display:flex;align-items:center;color:var(--saffron);font-size:20px;font-weight:700">→</div>
+      <div class="flow-step"><div class="flow-num">4</div><div class="flow-title">Action taken</div><div class="flow-sub">Within SLA deadline (24–96h by category)</div></div>
+      <div style="display:flex;align-items:center;color:var(--saffron);font-size:20px;font-weight:700">→</div>
+      <div class="flow-step"><div class="flow-num">5</div><div class="flow-title">Resolved + rated</div><div class="flow-sub">SMS confirmation, citizen can rate service</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ IVR PAGE ════ -->
+<div class="page" id="page-ivr">
+  <div class="ivr-hero">
+    <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;margin-bottom:6px;font-weight:500">Interactive voice response</div>
+    <div style="font-family:var(--font-display);font-size:24px;font-weight:700;margin-bottom:8px">VMC Helpline — 1800-233-XXXX</div>
+    <div style="font-size:13px;opacity:0.7;line-height:1.7;max-width:520px">Experience the exact phone menu citizens hear when calling VMC. Use the on-screen keypad to navigate. Available 24×7 in Gujarati, Hindi, and English. Toll-free from any network.</div>
+  </div>
+
+  <div class="two" style="align-items:start">
+    <div>
+      <div style="text-align:center;margin-bottom:14px;font-size:12px;font-weight:600;color:var(--text3);letter-spacing:0.06em;text-transform:uppercase">Tap keypad to navigate IVR</div>
+      <div class="phone-frame">
+        <div class="phone-top">
+          <div class="phone-number">1800-233-XXXX · VMC</div>
+          <div class="phone-status" id="ivr-conn">● Connected</div>
+        </div>
+        <div class="phone-screen" id="ivr-screen">Welcome to VMC
+Vadodara Municipal Corporation
+
+1 — Gujarati / ગુજરાતી
+2 — Hindi / हिंदी
+3 — English
+4 — Register complaint
+5 — Track complaint
+9 — Talk to operator
+0 — Repeat this menu</div>
+        <div class="phone-keypad">
+          <div class="phone-key" onclick="ivrKey('1')">1</div>
+          <div class="phone-key" onclick="ivrKey('2')">2</div>
+          <div class="phone-key" onclick="ivrKey('3')">3</div>
+          <div class="phone-key" onclick="ivrKey('4')">4</div>
+          <div class="phone-key" onclick="ivrKey('5')">5</div>
+          <div class="phone-key" onclick="ivrKey('6')">6</div>
+          <div class="phone-key" onclick="ivrKey('7')">7</div>
+          <div class="phone-key" onclick="ivrKey('8')">8</div>
+          <div class="phone-key" onclick="ivrKey('9')">9</div>
+          <div class="phone-key star" onclick="ivrKey('*')">*</div>
+          <div class="phone-key" onclick="ivrKey('0')">0</div>
+          <div class="phone-key hash" onclick="ivrKey('#')">#</div>
+        </div>
+        <div class="phone-actions">
+          <div class="phone-hangup" onclick="ivrHangup()">End call</div>
+          <div class="phone-back" onclick="ivrKey('*')">Back (*)</div>
+          <div class="phone-redial" onclick="ivrReset()">Redial</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--text3)">Try: Press 3 → 4 → 1 → 1 to register a complaint</div>
+    </div>
+    <div>
+      <div class="ivr-log-box">
+        <div class="card-title">Call log</div>
+        <div id="ivr-log"><div class="ivr-log-entry"><span class="ivr-log-time">00:00</span><span>Call connected to VMC helpline 1800-233-XXXX</span></div></div>
+      </div>
+      <div class="ivr-tree-card">
+        <div class="card-title">IVR menu structure</div>
+        <div style="margin-top:4px">
+          <div class="ivr-tree-line"><div class="ivr-key-pill">4</div><div><strong>Register complaint</strong> → Select category (1–8) → Describe → Confirm → ID via SMS</div></div>
+          <div class="ivr-tree-line"><div class="ivr-key-pill">5</div><div><strong>Track complaint</strong> → Enter ID digits → Hear status update</div></div>
+          <div class="ivr-tree-line"><div class="ivr-key-pill">9</div><div><strong>Operator</strong> → Hold for live agent (avg wait 3 min)</div></div>
+          <div class="ivr-tree-line"><div class="ivr-key-pill">1</div><div>Gujarati language menu</div></div>
+          <div class="ivr-tree-line"><div class="ivr-key-pill">2</div><div>Hindi language menu</div></div>
+          <div class="ivr-tree-line"><div class="ivr-key-pill">3</div><div>English language menu</div></div>
+          <div class="ivr-tree-line"><div class="ivr-key-pill">*</div><div>Back / return to previous menu</div></div>
+          <div class="ivr-tree-line"><div class="ivr-key-pill">0</div><div>Repeat current menu</div></div>
+        </div>
+        <div style="margin-top:14px;padding:10px 12px;background:var(--off);border-radius:var(--r);font-size:11px;color:var(--text2)">
+          <strong>Categories via keypad:</strong><br>
+          1-Roads &amp; Potholes · 2-Water Supply · 3-Drainage · 4-Garbage · 5-Street Lights · 6-Stray Animals · 7-Illegal Construction · 8-Other
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ OFFICER DASHBOARD ════ -->
+<div class="page" id="page-officer">
+  <div class="off-header">
+    <div>
+      <div class="off-name" id="off-name"></div>
+      <div class="off-meta" id="off-meta"></div>
+    </div>
+    <button class="btn btn-sm" onclick="doLogout('officer')">Logout</button>
+  </div>
+  <div class="metrics">
+    <div class="metric"><div class="mlbl">My complaints</div><div class="mval blue" id="om-total">0</div></div>
+    <div class="metric"><div class="mlbl">In progress</div><div class="mval amber" id="om-prog">0</div></div>
+    <div class="metric"><div class="mlbl">Overdue</div><div class="mval red" id="om-over">0</div></div>
+    <div class="metric"><div class="mlbl">Resolved</div><div class="mval green" id="om-res">0</div></div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
+    <div class="off-tabs">
+      <div class="off-tab active" id="ot-pending" onclick="offTab('pending')">Pending</div>
+      <div class="off-tab" id="ot-progress" onclick="offTab('progress')">In progress</div>
+      <div class="off-tab" id="ot-resolved" onclick="offTab('resolved')">Resolved</div>
+      <div class="off-tab" id="ot-escalated" onclick="offTab('escalated')">Escalated</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:0">
+    <div style="overflow-x:auto">
+      <table class="ctable">
+        <thead><tr><th>ID</th><th>Complaint</th><th>Priority</th><th>SLA</th><th>Actions</th></tr></thead>
+        <tbody id="off-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="two">
+    <div class="card">
+      <div class="card-title">My performance</div>
+      <table style="width:100%;font-size:12px;border-collapse:collapse">
+        <tr style="border-bottom:0.5px solid var(--off2)"><td style="padding:8px 0;color:var(--text2)">Total assigned</td><td style="padding:8px 0;text-align:right;font-weight:700" id="pf-tot">—</td></tr>
+        <tr style="border-bottom:0.5px solid var(--off2)"><td style="padding:8px 0;color:var(--text2)">Resolved</td><td style="padding:8px 0;text-align:right;font-weight:700;color:var(--green)" id="pf-res">—</td></tr>
+        <tr style="border-bottom:0.5px solid var(--off2)"><td style="padding:8px 0;color:var(--text2)">Avg resolution time</td><td style="padding:8px 0;text-align:right;font-weight:700">31h</td></tr>
+        <tr><td style="padding:8px 0;color:var(--text2)">SLA compliance</td><td style="padding:8px 0;text-align:right;font-weight:700" id="pf-sla">—</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Additional stats</div>
+      <table style="width:100%;font-size:12px;border-collapse:collapse">
+        <tr style="border-bottom:0.5px solid var(--off2)"><td style="padding:8px 0;color:var(--text2)">Citizen rating avg</td><td style="padding:8px 0;text-align:right;font-weight:700;color:var(--amber)">4.1 / 5.0</td></tr>
+        <tr style="border-bottom:0.5px solid var(--off2)"><td style="padding:8px 0;color:var(--text2)">Escalations triggered</td><td style="padding:8px 0;text-align:right;font-weight:700;color:var(--red)" id="pf-esc">—</td></tr>
+        <tr style="border-bottom:0.5px solid var(--off2)"><td style="padding:8px 0;color:var(--text2)">Weekly target</td><td style="padding:8px 0;text-align:right;font-weight:700">10 resolutions</td></tr>
+        <tr><td style="padding:8px 0;color:var(--text2)">Department rank</td><td style="padding:8px 0;text-align:right;font-weight:700">#2 of 8</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ════ ADMIN DASHBOARD ════ -->
+<div class="page" id="page-admin">
+  <div class="off-header">
+    <div>
+      <div class="off-name" id="adm-name"></div>
+      <div class="off-meta">Commissioner &amp; Admin — Vadodara Municipal Corporation</div>
+    </div>
+    <button class="btn btn-sm" onclick="doLogout('admin')">Logout</button>
+  </div>
+  <div class="filter-bar">
+    <span class="filter-lbl">Filters:</span>
+    <select id="af-status" onchange="renderAdmin()"><option value="">All statuses</option><option value="open">Open</option><option value="in-progress">In progress</option><option value="escalated">Escalated</option><option value="resolved">Resolved</option></select>
+    <select id="af-cat" onchange="renderAdmin()"><option value="">All categories</option><option>Roads &amp; Potholes</option><option>Water Supply</option><option>Drainage &amp; Sewage</option><option>Garbage Collection</option><option>Street Lights</option><option>Illegal Construction</option><option>Stray Animals</option></select>
+    <select id="af-ward" onchange="renderAdmin()"><option value="">All wards</option><option>Ward 1 — Sayajigunj</option><option>Ward 2 — Alkapuri</option><option>Ward 3 — Fatehgunj</option><option>Ward 4 — Karelibaug</option><option>Ward 5 — Manjalpur</option><option>Ward 6 — Waghodiya</option></select>
+    <select id="af-priority" onchange="renderAdmin()"><option value="">All priorities</option><option>critical</option><option>high</option><option>medium</option><option>low</option></select>
+    <select id="af-src" onchange="renderAdmin()"><option value="">All channels</option><option>Web form</option><option>WhatsApp</option><option>SMS</option><option>Phone / IVR</option><option>Twitter / X</option><option>Instagram</option><option>Walk-in</option></select>
+    <input type="date" id="af-from" onchange="renderAdmin()">
+    <input type="date" id="af-to" onchange="renderAdmin()">
+    <button class="btn btn-sm" onclick="clearFilters()">Clear</button>
+  </div>
+  <div class="metrics" id="adm-metrics"></div>
+  <div class="two">
+    <div class="card"><div class="card-title">By category</div><div id="adm-cat"></div></div>
+    <div class="card"><div class="card-title">By channel</div><div id="adm-src"></div></div>
+  </div>
+  <div class="two">
+    <div class="card"><div class="card-title">By ward</div><div id="adm-ward"></div></div>
+    <div class="card"><div class="card-title">Officer performance</div><div id="adm-off"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-title" id="adm-tbl-hdr">All complaints</div>
+    <div style="overflow-x:auto">
+      <table class="ctable">
+        <thead><tr><th>ID</th><th>Date</th><th>Category</th><th>Ward</th><th>Channel</th><th>Priority</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody id="adm-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+</div><!-- /main -->
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <div class="footer-emblem">V</div>
+            <div>
+              <div class="footer-brand-text">Vadodara Municipal Corporation</div>
+              <div class="footer-brand-sub">GOVERNMENT OF GUJARAT · EST. 1950</div>
+            </div>
+          </div>
+          <div class="footer-desc">VMC is committed to building a smart, inclusive, and responsive city for all 20 lakh citizens of Vadodara. Our complaint management system ensures every voice is heard and every issue resolved with transparency.</div>
+          <div class="footer-contact-row">
+            <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div class="footer-contact-val"><strong>Main Office — Khanderao Market</strong>Vadodara, Gujarat — 390001, India</div>
+          </div>
+          <div class="footer-contact-row">
+            <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.69h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <div class="footer-contact-val"><strong>Helpline (toll free)</strong>1800-233-XXXX · 24×7</div>
+          </div>
+          <div class="footer-contact-row">
+            <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div class="footer-contact-val"><strong>Email</strong>complaints@vmc.gov.in</div>
+          </div>
+          <div class="footer-contact-row">
+            <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div class="footer-contact-val"><strong>Office hours</strong>Mon–Sat · 10:00 AM – 6:00 PM</div>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Quick links</div>
+          <span class="footer-link" onclick="goPage('home');switchTab('submit')">Register complaint</span>
+          <span class="footer-link" onclick="goPage('home');switchTab('track')">Track complaint</span>
+          <span class="footer-link" onclick="goPage('channels')">All complaint channels</span>
+          <span class="footer-link" onclick="goPage('ivr')">IVR simulator</span>
+          <span class="footer-link" onclick="goPage('home');switchTab('stats')">Public statistics</span>
+          <span class="footer-link" onclick="openLogin('officer')">Officer login</span>
+          <span class="footer-link" onclick="openLogin('admin')">Admin / Commissioner login</span>
+        </div>
+        <div>
+          <div class="footer-col-title">Departments</div>
+          <span class="footer-link">Roads &amp; Infrastructure</span>
+          <span class="footer-link">Water Supply</span>
+          <span class="footer-link">Drainage &amp; Sewage</span>
+          <span class="footer-link">Solid Waste Management</span>
+          <span class="footer-link">Electrical Dept.</span>
+          <span class="footer-link">Town Planning</span>
+          <span class="footer-link">Garden Dept.</span>
+          <span class="footer-link">Health Dept.</span>
+          <span class="footer-link">Animal Control</span>
+          <span class="footer-link">Civil Records</span>
+        </div>
+        <div>
+          <div class="footer-col-title">Services</div>
+          <span class="footer-link">Property tax payment</span>
+          <span class="footer-link">Birth / Death certificate</span>
+          <span class="footer-link">Building permission</span>
+          <span class="footer-link">Water connection</span>
+          <span class="footer-link">Trade license</span>
+          <span class="footer-link">Marriage certificate</span>
+          <span class="footer-link">Encroachment removal</span>
+          <div class="footer-col-title" style="margin-top:18px">Emergency</div>
+          <div style="font-size:14px;font-weight:700;color:var(--saffron2)">1800-233-XXXX</div>
+          <div style="font-size:11px;opacity:0.5;margin-top:2px">24×7 toll free helpline</div>
+          <div style="font-size:14px;font-weight:700;color:#f88;margin-top:6px">100 / 108 / 101</div>
+          <div style="font-size:11px;opacity:0.5;margin-top:2px">Police / Ambulance / Fire</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="footer-divider">
+  <div class="wrap">
+    <div class="footer-bottom">
+      <div class="footer-bottom-text">© 2024 Vadodara Municipal Corporation · Government of Gujarat · All rights reserved &nbsp;·&nbsp; RTI &nbsp;·&nbsp; Disclaimer &nbsp;·&nbsp; Privacy Policy &nbsp;·&nbsp; Accessibility</div>
+      <div class="footer-social">
+        <a class="social-pill" href="#">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+          Twitter
+        </a>
+        <a class="social-pill" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          Instagram
+        </a>
+        <a class="social-pill" href="#">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          Facebook
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ═══ DATA ═══
+const DEPTS={'Roads & Potholes':'Roads & Infrastructure','Water Supply':'Water Supply Dept.','Drainage & Sewage':'Drainage Dept.','Garbage Collection':'Solid Waste Mgmt.','Street Lights':'Electrical Dept.','Illegal Construction':'Town Planning','Stray Animals':'Animal Control','Tree Cutting / Falling':'Garden Dept.','Park & Garden':'Garden Dept.','Mosquito / Pest Control':'Health Dept.','Encroachment':'Town Planning','Birth / Death Certificate':'Civil Records'};
+const SLA={'Roads & Potholes':72,'Water Supply':24,'Drainage & Sewage':48,'Garbage Collection':24,'Street Lights':48,'Illegal Construction':96,'Stray Animals':24,'Tree Cutting / Falling':72,'Park & Garden':96,'Mosquito / Pest Control':48,'Encroachment':96,'Birth / Death Certificate':72};
+const PRIO={'Water Supply':'critical','Drainage & Sewage':'critical','Roads & Potholes':'high','Garbage Collection':'high','Street Lights':'medium','Stray Animals':'medium','Illegal Construction':'medium','Tree Cutting / Falling':'low','Park & Garden':'low','Mosquito / Pest Control':'medium','Encroachment':'medium','Birth / Death Certificate':'low'};
+const OFFICERS=[
+  {id:'VMC-OFF-042',name:'Ramesh Patel',dept:'Roads & Infrastructure',ward:'Ward 1 — Sayajigunj',pw:'1234',role:'officer'},
+  {id:'VMC-OFF-017',name:'Sunita Sharma',dept:'Water Supply Dept.',ward:'Ward 2 — Alkapuri',pw:'1234',role:'officer'},
+  {id:'VMC-OFF-031',name:'Kiran Mehta',dept:'Solid Waste Mgmt.',ward:'Ward 3 — Fatehgunj',pw:'1234',role:'officer'},
+  {id:'VMC-OFF-055',name:'Deepak Joshi',dept:'Drainage Dept.',ward:'Ward 4 — Karelibaug',pw:'1234',role:'officer'},
+  {id:'VMC-OFF-008',name:'Anita Verma',dept:'Electrical Dept.',ward:'Ward 5 — Manjalpur',pw:'1234',role:'officer'},
+];
+const ADMINS=[
+  {id:'VMC-ADM-001',name:'Commissioner Suresh IAS',role:'admin',pw:'admin123'},
+  {id:'VMC-ADM-002',name:'Dy. Commissioner Priya',role:'admin',pw:'admin123'},
+];
+let DB=[
+  {id:'VMC-2024-00101',name:'Rajesh Shah',phone:'9876543210',ward:'Ward 1 — Sayajigunj',cat:'Roads & Potholes',desc:'Large pothole near Baroda Central mall causing accidents daily.',status:'escalated',priority:'high',officer:'VMC-OFF-042',created:'2024-01-10',dept:'Roads & Infrastructure',src:'Web form',sla:72,elapsed:96,events:[{t:'2024-01-10 09:00',e:'Registered via Web form',done:true},{t:'2024-01-10 09:01',e:'Assigned to Ramesh Patel (VMC-OFF-042)',done:true},{t:'2024-01-10 09:01',e:'SMS sent to citizen',done:true},{t:'2024-01-12 09:00',e:'SLA breached — escalated to supervisor',done:true},{t:null,e:'Pending resolution',done:false}]},
+  {id:'VMC-2024-00102',name:'Priya Desai',phone:'9123456780',ward:'Ward 2 — Alkapuri',cat:'Water Supply',desc:'No water supply for 2 days in Alkapuri sector 3.',status:'in-progress',priority:'critical',officer:'VMC-OFF-017',created:'2024-01-12',dept:'Water Supply Dept.',src:'WhatsApp',sla:24,elapsed:18,events:[{t:'2024-01-12 11:30',e:'Registered via WhatsApp',done:true},{t:'2024-01-12 11:31',e:'Assigned to Sunita Sharma',done:true},{t:'2024-01-12 15:00',e:'Officer visited site',done:true},{t:null,e:'Repair in progress',done:false}]},
+  {id:'VMC-2024-00103',name:'Anil Gupta',phone:'9988776655',ward:'Ward 3 — Fatehgunj',cat:'Garbage Collection',desc:'Garbage not collected for 3 days near Fatehgunj post office.',status:'open',priority:'high',officer:'VMC-OFF-031',created:'2024-01-13',dept:'Solid Waste Mgmt.',src:'SMS',sla:24,elapsed:8,events:[{t:'2024-01-13 08:15',e:'Registered via SMS',done:true},{t:'2024-01-13 08:16',e:'Assigned to Kiran Mehta',done:true},{t:null,e:'Awaiting officer action',done:false}]},
+  {id:'VMC-2024-00104',name:'Meena Trivedi',phone:'8765432109',ward:'Ward 1 — Sayajigunj',cat:'Street Lights',desc:'4 street lights not working near Sayaji Park main road.',status:'resolved',priority:'medium',officer:'VMC-OFF-042',created:'2024-01-11',dept:'Electrical Dept.',src:'Phone / IVR',sla:48,elapsed:28,events:[{t:'2024-01-11 14:00',e:'Registered via IVR',done:true},{t:'2024-01-11 14:01',e:'Assigned to Ramesh Patel',done:true},{t:'2024-01-12 10:00',e:'Officer inspected',done:true},{t:'2024-01-12 16:30',e:'Resolved — lights repaired',done:true}]},
+  {id:'VMC-2024-00105',name:'Suresh Nair',phone:'9654321098',ward:'Ward 4 — Karelibaug',cat:'Drainage & Sewage',desc:'Sewage overflow on Karelibaug main road — health hazard.',status:'escalated',priority:'critical',officer:'VMC-OFF-055',created:'2024-01-09',dept:'Drainage Dept.',src:'Twitter / X',sla:48,elapsed:110,events:[{t:'2024-01-09 07:45',e:'Registered via Twitter/X',done:true},{t:'2024-01-09 07:46',e:'Assigned to Deepak Joshi',done:true},{t:'2024-01-11 07:45',e:'SLA breached — escalated',done:true},{t:'2024-01-12 09:00',e:'Escalated to Commissioner',done:true},{t:null,e:'Emergency team dispatched',done:false}]},
+  {id:'VMC-2024-00106',name:'Fatima Shaikh',phone:'9871234560',ward:'Ward 5 — Manjalpur',cat:'Stray Animals',desc:'Pack of stray dogs attacking children near Manjalpur school.',status:'open',priority:'medium',officer:'VMC-OFF-008',created:'2024-01-13',dept:'Animal Control',src:'WhatsApp',sla:24,elapsed:5,events:[{t:'2024-01-13 10:00',e:'Registered via WhatsApp',done:true},{t:'2024-01-13 10:01',e:'Assigned to Anita Verma',done:true},{t:null,e:'Officer to inspect',done:false}]},
+  {id:'VMC-2024-00107',name:'Vimal Shah',phone:'9012345678',ward:'Ward 2 — Alkapuri',cat:'Illegal Construction',desc:'Unauthorised construction blocking footpath on Race Course road.',status:'in-progress',priority:'medium',officer:'VMC-OFF-017',created:'2024-01-12',dept:'Town Planning',src:'Walk-in',sla:96,elapsed:30,events:[{t:'2024-01-12 13:00',e:'Registered via Walk-in',done:true},{t:'2024-01-12 13:02',e:'Assigned to Sunita Sharma',done:true},{t:'2024-01-13 10:00',e:'Notice issued to builder',done:true},{t:null,e:'Awaiting compliance',done:false}]},
+];
+let nextId=108;
+let currentUser=null;
+let offTabActive='pending';
+let modalRole='officer';
+
+// ═══ NAV ═══
+function goPage(p){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tnav').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  const nav=document.getElementById('tnav-'+p);
+  if(nav) nav.classList.add('active');
+  if(p==='admin') renderAdmin();
+  if(p==='home') renderPubStats();
+}
+function switchTab(t){
+  ['submit','track','stats'].forEach(s=>{
+    document.getElementById('tab-'+s).classList.toggle('active',s===t);
+    document.getElementById('tc-'+s).classList.toggle('active',s===t);
+  });
+  if(t==='stats') renderPubStatsPage();
+}
+
+// ═══ MODAL LOGIN ═══
+function openLogin(role){
+  modalRole=role;
+  switchModalTab(role);
+  document.getElementById('login-modal').classList.add('open');
+  document.getElementById('m-id').focus();
+  document.getElementById('modal-err').style.display='none';
+  document.getElementById('m-id').value='';
+  document.getElementById('m-pw').value='';
+}
+function closeLogin(){document.getElementById('login-modal').classList.remove('open')}
+function closeLoginOutside(e){if(e.target===document.getElementById('login-modal'))closeLogin()}
+function switchModalTab(role){
+  modalRole=role;
+  document.getElementById('mtab-officer').classList.toggle('active',role==='officer');
+  document.getElementById('mtab-admin').classList.toggle('active',role==='admin');
+  document.getElementById('mlbl-id').textContent=role==='officer'?'Officer ID':'Admin ID';
+  document.getElementById('m-id').placeholder=role==='officer'?'VMC-OFF-042':'VMC-ADM-001';
+  document.getElementById('modal-hint').textContent=role==='officer'?'Demo — Officer: VMC-OFF-042 / 1234':'Demo — Admin: VMC-ADM-001 / admin123';
+  document.getElementById('modal-err').style.display='none';
+}
+function doLogin(){
+  const id=document.getElementById('m-id').value.trim().toUpperCase();
+  const pw=document.getElementById('m-pw').value;
+  const errEl=document.getElementById('modal-err');
+  if(modalRole==='officer'){
+    const off=OFFICERS.find(o=>o.id===id&&o.pw===pw);
+    if(!off){errEl.style.display='block';errEl.textContent='Invalid Officer ID or password. Try VMC-OFF-042 / 1234';return;}
+    currentUser=off;
+    closeLogin();
+    goPage('officer');
+    renderOfficer();
+  } else {
+    const adm=ADMINS.find(a=>a.id===id&&a.pw===pw);
+    if(!adm){errEl.style.display='block';errEl.textContent='Invalid Admin ID or password. Try VMC-ADM-001 / admin123';return;}
+    currentUser=adm;
+    closeLogin();
+    goPage('admin');
+    document.getElementById('adm-name').textContent=adm.name;
+    renderAdmin();
+  }
+}
+function doLogout(role){
+  currentUser=null;
+  goPage('home');
+}
+document.getElementById('m-pw').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+
+// ═══ FORMS ═══
+function onCatChange(){
+  const c=document.getElementById('f-cat').value;
+  document.getElementById('f-dept').value=DEPTS[c]||'';
+  const p=PRIO[c]||'medium';
+  document.getElementById('f-priority').value=p.charAt(0).toUpperCase()+p.slice(1);
+}
+function assignOfficer(dept,ward){
+  return OFFICERS.find(o=>o.dept===dept&&o.ward===ward)||OFFICERS.find(o=>o.dept===dept)||OFFICERS[0];
+}
+function submitComplaint(){
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const ward=document.getElementById('f-ward').value;
+  const cat=document.getElementById('f-cat').value;
+  const desc=document.getElementById('f-desc').value.trim();
+  const src=document.getElementById('f-src').value;
+  if(!name||!phone||!ward||!cat||!desc){alert('Please fill all required fields (*).');return;}
+  const dept=DEPTS[cat]||'General';
+  const off=assignOfficer(dept,ward);
+  const id='VMC-2024-00'+String(nextId++).padStart(3,'0');
+  const today=new Date().toLocaleDateString('en-IN');
+  const sla=SLA[cat]||48;
+  const pri=PRIO[cat]||'medium';
+  DB.push({id,name,phone,ward,cat,desc,status:'open',priority:pri,officer:off.id,created:today,dept,src,sla,elapsed:0,events:[{t:today+' (now)',e:'Registered via '+src,done:true},{t:today+' (now)',e:'Auto-assigned to '+off.name+' ('+off.id+')',done:true},{t:today+' (now)',e:'SMS confirmation sent to '+phone,done:true},{t:null,e:'Officer to act within '+sla+'h',done:false}]});
+  const ok=document.getElementById('submit-ok');
+  ok.style.display='block';
+  ok.innerHTML='<strong>Complaint registered successfully!</strong> Your ID: <strong>'+id+'</strong><br><span style="font-size:12px">SMS sent to '+phone+' · Assigned: '+off.name+' · SLA: '+sla+'h</span>';
+  ['f-name','f-phone','f-email','f-addr','f-desc'].forEach(i=>document.getElementById(i).value='');
+  ['f-ward','f-cat'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('f-dept').value='';document.getElementById('f-priority').value='';
+  renderPubStats();
+}
+function doTrack(){
+  const raw=document.getElementById('trk-id').value.trim().toUpperCase();
+  const c=DB.find(x=>x.id===raw);
+  const r=document.getElementById('trk-result');
+  if(!c){r.innerHTML='<div class="notice notice-warn">Complaint ID not found. Try VMC-2024-00101 or VMC-2024-00102</div>';return;}
+  const off=OFFICERS.find(o=>o.id===c.officer);
+  r.innerHTML=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div><div style="font-size:15px;font-weight:700">${c.id}</div><div style="font-size:12px;color:var(--text2)">${c.cat} · ${c.ward}</div></div><span>${sBadge(c.status)}</span></div><div style="font-size:12px;margin-bottom:8px">${c.desc}</div><div style="font-size:11px;color:var(--text3);margin-bottom:12px">Officer: ${off?off.name:'—'} · SLA: ${c.sla}h · Elapsed: ${c.elapsed}h</div><div class="tl">${c.events.map(ev=>`<div class="tli"><div class="tld ${ev.done?'done':''}"></div><div style="font-weight:600;font-size:12px">${ev.e}</div>${ev.t?'<div style="font-size:10px;color:var(--text3)">'+ev.t+'</div>':''}</div>`).join('')}</div></div>`;
+}
+function renderPubStats(){
+  document.getElementById('ps-open').textContent=DB.filter(c=>c.status!=='resolved').length;
+  document.getElementById('ps-res').textContent=DB.filter(c=>c.status==='resolved').length;
+  const cats={};DB.forEach(c=>{cats[c.cat]=(cats[c.cat]||0)+1;});
+  const max=Math.max(...Object.values(cats),1);
+  document.getElementById('pub-bars').innerHTML=Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([k,v])=>`<div class="bar-row"><div class="blbl">${k.length>16?k.slice(0,15)+'…':k}</div><div class="btrk"><div class="bfil" style="width:${Math.round(v/max*100)}%;background:var(--blue-bg)"></div></div><div class="bnum">${v}</div></div>`).join('');
+}
+function renderPubStatsPage(){
+  const cats={};DB.forEach(c=>{cats[c.cat]=(cats[c.cat]||0)+1;});
+  const maxC=Math.max(...Object.values(cats),1);
+  document.getElementById('pub-stats-cat').innerHTML=Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="bar-row"><div class="blbl">${k.length>16?k.slice(0,15)+'…':k}</div><div class="btrk"><div class="bfil" style="width:${Math.round(v/maxC*100)}%;background:#B5D4F4"></div></div><div class="bnum">${v}</div></div>`).join('');
+  const wards={};DB.forEach(c=>{const w=c.ward.split('— ')[1]||c.ward;wards[w]=(wards[w]||0)+1;});
+  const maxW=Math.max(...Object.values(wards),1);
+  document.getElementById('pub-stats-ward').innerHTML=Object.entries(wards).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="bar-row"><div class="blbl">${k}</div><div class="btrk"><div class="bfil" style="width:${Math.round(v/maxW*100)}%;background:#C0DD97"></div></div><div class="bnum">${v}</div></div>`).join('');
+}
+
+// ═══ OFFICER ═══
+function offTab(t){
+  offTabActive=t;
+  ['pending','progress','resolved','escalated'].forEach(s=>{document.getElementById('ot-'+s).classList.toggle('active',s===t)});
+  renderOfficer();
+}
+function renderOfficer(){
+  if(!currentUser||currentUser.role!=='officer')return;
+  document.getElementById('off-name').textContent=currentUser.name;
+  document.getElementById('off-meta').textContent=currentUser.id+' · '+currentUser.dept+' · '+currentUser.ward;
+  const mine=DB.filter(c=>c.officer===currentUser.id);
+  const pending=mine.filter(c=>c.status==='open');
+  const prog=mine.filter(c=>c.status==='in-progress');
+  const res=mine.filter(c=>c.status==='resolved');
+  const esc=mine.filter(c=>c.status==='escalated');
+  const over=mine.filter(c=>c.elapsed>=c.sla&&c.status!=='resolved');
+  document.getElementById('om-total').textContent=mine.filter(c=>c.status!=='resolved').length;
+  document.getElementById('om-prog').textContent=prog.length;
+  document.getElementById('om-over').textContent=over.length;
+  document.getElementById('om-res').textContent=res.length;
+  const map={pending,progress:prog,resolved:res,escalated:esc};
+  const list=map[offTabActive]||pending;
+  document.getElementById('off-tbody').innerHTML=list.length===0?
+    '<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text3)">No complaints in this category</td></tr>':
+    list.map(c=>`<tr><td style="font-size:11px;font-weight:700">${c.id}</td><td><div style="font-size:12px;font-weight:500">${c.desc.slice(0,50)}…</div><div style="font-size:10px;color:var(--text3)">${c.ward} · ${c.cat}</div></td><td>${pBadge(c.priority)}</td><td>${slaBar(c.elapsed,c.sla)}</td><td><div style="display:flex;gap:4px">${c.status!=='in-progress'&&c.status!=='resolved'?`<button class="btn btn-sm" onclick="offAction('${c.id}','in-progress')">Start</button>`:''} ${c.status!=='resolved'?`<button class="btn btn-sm btn-success" onclick="offAction('${c.id}','resolved')">Resolve</button>`:''}</div></td></tr>`).join('');
+  const tot=mine.length;const rcount=res.length;const rate=tot>0?Math.round(rcount/tot*100):0;
+  document.getElementById('pf-tot').textContent=tot;
+  document.getElementById('pf-res').textContent=rcount;
+  document.getElementById('pf-sla').textContent=rate+'%';
+  document.getElementById('pf-esc').textContent=esc.length;
+}
+function offAction(id,status){
+  const c=DB.find(x=>x.id===id);if(!c)return;
+  c.status=status;
+  const t=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  c.events.push({t:'Today '+t,e:status==='resolved'?'Resolved by '+currentUser.name:'Work started by '+currentUser.name,done:true});
+  renderOfficer();
+}
+
+// ═══ ADMIN ═══
+function clearFilters(){['af-status','af-cat','af-ward','af-priority','af-src','af-from','af-to'].forEach(i=>document.getElementById(i).value='');renderAdmin();}
+function getFiltered(){
+  const st=document.getElementById('af-status').value,cat=document.getElementById('af-cat').value,ward=document.getElementById('af-ward').value,pri=document.getElementById('af-priority').value,src=document.getElementById('af-src').value,from=document.getElementById('af-from').value,to=document.getElementById('af-to').value;
+  return DB.filter(c=>{
+    if(st&&c.status!==st)return false;
+    if(cat&&!c.cat.includes(cat.replace(/&amp;/g,'&')))return false;
+    if(ward&&c.ward!==ward)return false;
+    if(pri&&c.priority!==pri)return false;
+    if(src&&c.src!==src)return false;
+    if(from&&c.created<from)return false;
+    if(to&&c.created>to)return false;
+    return true;
+  });
+}
+function renderAdmin(){
+  const data=getFiltered();
+  const open=data.filter(c=>c.status==='open').length,prog=data.filter(c=>c.status==='in-progress').length,esc=data.filter(c=>c.status==='escalated').length,res=data.filter(c=>c.status==='resolved').length;
+  document.getElementById('adm-metrics').innerHTML=`<div class="metric"><div class="mlbl">Total (filtered)</div><div class="mval">${data.length}</div></div><div class="metric"><div class="mlbl">Open + in progress</div><div class="mval blue">${open+prog}</div></div><div class="metric"><div class="mlbl">Escalated</div><div class="mval red">${esc}</div></div><div class="metric"><div class="mlbl">Resolved</div><div class="mval green">${res}</div></div>`;
+  function mkChart(el,obj,col){const max=Math.max(...Object.values(obj),1);document.getElementById(el).innerHTML=Object.entries(obj).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="bar-row"><div class="blbl">${k.length>16?k.slice(0,15)+'…':k}</div><div class="btrk"><div class="bfil" style="width:${Math.round(v/max*100)}%;background:${col}"></div></div><div class="bnum">${v}</div></div>`).join('');}
+  const cats={};data.forEach(c=>{cats[c.cat]=(cats[c.cat]||0)+1;});mkChart('adm-cat',cats,'#B5D4F4');
+  const srcs={};data.forEach(c=>{srcs[c.src]=(srcs[c.src]||0)+1;});mkChart('adm-src',srcs,'#FAC775');
+  const wards={};data.forEach(c=>{const w=c.ward.split('— ')[1]||c.ward;wards[w]=(wards[w]||0)+1;});mkChart('adm-ward',wards,'#C0DD97');
+  const offStats={};OFFICERS.forEach(o=>{offStats[o.id]={name:o.name,total:0,res:0,esc:0}});data.forEach(c=>{if(offStats[c.officer]){offStats[c.officer].total++;if(c.status==='resolved')offStats[c.officer].res++;if(c.status==='escalated')offStats[c.officer].esc++;}});
+  document.getElementById('adm-off').innerHTML='<table class="ctable"><thead><tr><th>Officer</th><th>Assigned</th><th>Resolved</th><th>Rate</th></tr></thead><tbody>'+Object.values(offStats).map(o=>{const rate=o.total>0?Math.round(o.res/o.total*100):0;const col=rate>=80?'#1D6A2D':rate>=50?'#7A4200':'#A32D2D';return`<tr><td style="font-weight:600">${o.name}</td><td>${o.total}</td><td style="color:var(--green)">${o.res}</td><td><div style="font-size:10px;color:${col};font-weight:600">${rate}%</div><div class="sla-bar" style="height:5px;margin-top:2px"><div class="sla-fill" style="width:${rate}%;background:${col}"></div></div></td></tr>`;}).join('')+'</tbody></table>';
+  document.getElementById('adm-tbl-hdr').textContent='All complaints ('+data.length+' shown)';
+  document.getElementById('adm-tbody').innerHTML=data.length===0?'<tr><td colspan="8" style="text-align:center;padding:20px;color:var(--text3)">No complaints match filters</td></tr>':data.map(c=>`<tr><td style="font-size:11px;font-weight:700">${c.id}</td><td style="font-size:11px;color:var(--text2)">${c.created}</td><td style="font-size:11px">${c.cat}</td><td style="font-size:11px">${c.ward.split('— ')[1]||c.ward}</td><td style="font-size:11px">${c.src}</td><td>${pBadge(c.priority)}</td><td>${sBadge(c.status)}</td><td><button class="btn btn-sm ${c.status==='escalated'?'btn-danger':''}" onclick="admAction('${c.id}')">${c.status==='escalated'?'Reassign':'Flag'}</button></td></tr>`).join('');
+}
+function admAction(id){
+  const c=DB.find(x=>x.id===id);if(!c)return;
+  if(c.status==='escalated'){c.status='in-progress';c.events.push({t:'Now',e:'Force-reassigned by Commissioner',done:true});alert(id+' — reassigned for immediate action.');}
+  else alert(id+' — flagged for review.');
+  renderAdmin();
+}
+
+// ═══ BADGES / HELPERS ═══
+function sBadge(s){const m={open:'b-open Open','in-progress':'b-prog In progress',resolved:'b-done Resolved',escalated:'b-esc Escalated'};const[cls,lbl]=(m[s]||'b-open Open').split(' ');return`<span class="badge ${cls}">${lbl}</span>`;}
+function pBadge(p){const m={critical:'b-crit Critical',high:'b-high High',medium:'b-med Medium',low:'b-low Low'};return`<span class="badge ${m[p]||'b-low'}">${p.charAt(0).toUpperCase()+p.slice(1)}</span>`;}
+function slaBar(el,sl){const pct=Math.min(Math.round(el/sl*100),100);const col=pct>=100?'#A32D2D':pct>=75?'#7A4200':'#1D6A2D';return`<div style="font-size:10px;color:${col};font-weight:600">${el}h/${sl}h</div><div class="sla-bar"><div class="sla-fill" style="width:${pct}%;background:${col}"></div></div>`;}
+
+// ═══ IVR ═══
+const IVR={
+  main:{t:'Welcome to VMC\nVadodara Municipal Corporation\n\n1 — Gujarati / ગુજરાતી\n2 — Hindi / हिंदी\n3 — English\n4 — Register complaint\n5 — Track complaint\n9 — Talk to operator\n0 — Repeat menu',k:{1:'gu',2:'hi',3:'en',4:'comp',5:'track',9:'op',0:'main'}},
+  gu:{t:'ગુજરાતી ભાષા પસંદ.\n\n1 — ફરિયાદ નોંધાવો\n2 — ફરિયાદ ટ્રેક\n9 — ઓપરેટર\n* — મુખ્ય મેનૂ',k:{1:'comp',2:'track',9:'op','*':'main'}},
+  hi:{t:'हिंदी चुना गया।\n\n1 — शिकायत दर्ज करें\n2 — ट्रैक करें\n9 — ऑपरेटर\n* — मुख्य मेनू',k:{1:'comp',2:'track',9:'op','*':'main'}},
+  en:{t:'English selected.\n\n1 — Register complaint\n2 — Track complaint\n9 — Operator\n* — Main menu',k:{1:'comp',2:'track',9:'op','*':'main'}},
+  comp:{t:'Register complaint.\nSelect category:\n\n1 — Roads & Potholes\n2 — Water Supply\n3 — Drainage & Sewage\n4 — Garbage Collection\n5 — Street Lights\n6 — Stray Animals\n7 — Illegal Construction\n8 — Other\n* — Back',k:{1:'c1',2:'c2',3:'c3',4:'c4',5:'c5',6:'c6',7:'c7',8:'c8','*':'main'}},
+  c1:{t:'Roads & Potholes.\n\nPlease describe the location\nafter the tone. [BEEP...]\n\n1 — Confirm & register\n* — Cancel',k:{1:'cok','*':'comp'}},
+  c2:{t:'Water Supply.\n\nDescribe location after tone.\n[BEEP...]\n\n1 — Confirm\n* — Cancel',k:{1:'cok','*':'comp'}},
+  c3:{t:'Drainage & Sewage.\n\nDescribe issue after tone.\n[BEEP...]\n\n1 — Confirm\n* — Cancel',k:{1:'cok','*':'comp'}},
+  c4:{t:'Garbage Collection.\n\nDescribe location after tone.\n[BEEP...]\n\n1 — Confirm\n* — Cancel',k:{1:'cok','*':'comp'}},
+  c5:{t:'Street Lights.\n\nDescribe location after tone.\n[BEEP...]\n\n1 — Confirm\n* — Cancel',k:{1:'cok','*':'comp'}},
+  c6:{t:'Stray Animals.\n\nDescribe location after tone.\n[BEEP...]\n\n1 — Confirm\n* — Cancel',k:{1:'cok','*':'comp'}},
+  c7:{t:'Illegal Construction.\n\nDescribe location after tone.\n[BEEP...]\n\n1 — Confirm\n* — Cancel',k:{1:'cok','*':'comp'}},
+  c8:{t:'Other complaint.\n\nDescribe issue after tone.\n[BEEP...]\n\n1 — Confirm\n* — Cancel',k:{1:'cok','*':'comp'}},
+  cok:{t:'Complaint registered!\n────────────────────\nID: VMC-2024-00'+nextId+'\n────────────────────\nSMS sent to your mobile.\nOfficer assigned. Expected\nresolution within 48 hours.\n\n1 — Register another\n5 — Track complaint\n0 — Main menu',k:{1:'comp',5:'track',0:'main'}},
+  track:{t:'Track your complaint.\n\nEnter 3 digits of complaint\n(e.g. for 00101: press 1 0 1)\n\n* — Back to main menu',k:{'*':'main',default:'tres'}},
+  tres:{t:'VMC-2024-00101\n────────────────────\nStatus: ESCALATED\nCategory: Roads & Potholes\nWard: Sayajigunj\nOfficer: Ramesh Patel\nEscalated: Jan 12\n────────────────────\n\n1 — Hear again\n0 — Main menu',k:{1:'tres',0:'main','*':'main'}},
+  op:{t:'Connecting to VMC operator...\nPlease hold the line.\n\nAverage wait: 3 minutes.\nAll calls are recorded.\n\n* — Return to main menu',k:{'*':'main'}},
+};
+let ivrSt='main';let ivrStart=Date.now();
+function ivrKey(k){
+  const flow=IVR[ivrSt];if(!flow)return;
+  const next=flow.k[k]||(flow.k.default||null);
+  ivrLog('Key '+k+' pressed');
+  if(next){ivrSt=next;ivrRender();}
+}
+function ivrRender(){
+  const flow=IVR[ivrSt];if(!flow)return;
+  document.getElementById('ivr-screen').textContent=flow.t;
+  ivrLog('→ '+ivrSt);
+}
+function ivrLog(msg){
+  const el=document.getElementById('ivr-log');
+  const elapsed=Math.round((Date.now()-ivrStart)/1000);
+  const mm=String(Math.floor(elapsed/60)).padStart(2,'0'),ss=String(elapsed%60).padStart(2,'0');
+  const d=document.createElement('div');d.className='ivr-log-entry';
+  d.innerHTML=`<span class="ivr-log-time">${mm}:${ss}</span><span>${msg}</span>`;
+  el.prepend(d);
+}
+function ivrHangup(){
+  document.getElementById('ivr-screen').textContent='Call ended.\n\nThank you for contacting\nVadodara Municipal Corporation.\n\nHelpline: 1800-233-XXXX\n24×7 · Toll free';
+  document.getElementById('ivr-conn').textContent='● Ended';
+  document.getElementById('ivr-conn').style.color='#f88';
+  ivrLog('Call ended');
+}
+function ivrReset(){
+  ivrSt='main';ivrStart=Date.now();
+  ivrRender();
+  document.getElementById('ivr-conn').textContent='● Connected';
+  document.getElementById('ivr-conn').style.color='#4CAF50';
+  document.getElementById('ivr-log').innerHTML='<div class="ivr-log-entry"><span class="ivr-log-time">00:00</span><span>Call reconnected to VMC helpline</span></div>';
+}
+
+renderPubStats();
+renderAdmin();
+</script>
+</body>
+</html>
