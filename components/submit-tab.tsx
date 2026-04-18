@@ -46,6 +46,8 @@ export default function SubmitTab() {
 
   const [submitted, setSubmitted] = useState(false);
   const [complaintId, setComplaintId] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -59,26 +61,71 @@ export default function SubmitTab() {
 
   const handleSubmit = async () => {
     if (!formData.name || !formData.phone || !formData.category || !formData.description || !formData.address || !formData.ward) {
-      alert('Please fill all required fields');
+      setError('Please fill all required fields');
       return;
     }
 
+    setIsLoading(true);
+    setError('');
+
     try {
+      // Map form fields to API schema
+      const intakeChannelMap: { [key: string]: string } = {
+        'Web form': 'website',
+        'WhatsApp': 'whatsapp',
+        'SMS': 'twilio_sms',
+        'Phone / IVR': 'twilio_ivr',
+        'Instagram': 'social_media',
+        'Twitter / X': 'social_media',
+        'Walk-in': 'email'
+      };
+
+      const categoryMap: { [key: string]: string } = {
+        'Roads & Potholes': 'roads',
+        'Water Supply': 'water_supply',
+        'Drainage & Sewage': 'sanitation',
+        'Garbage Collection': 'garbage',
+        'Street Lights': 'streetlights',
+        'Illegal Construction': 'construction',
+        'Stray Animals': 'other',
+        'Tree Cutting / Falling': 'parks',
+        'Park & Garden': 'parks',
+        'Mosquito / Pest Control': 'other',
+        'Encroachment': 'traffic',
+        'Birth / Death Certificate': 'other'
+      };
+
+      const payload = {
+        citizen_name: formData.name,
+        citizen_email: formData.email || null,
+        citizen_phone: formData.phone,
+        category: categoryMap[formData.category] || 'other',
+        title: `${formData.category} - Ward ${formData.ward}`,
+        description: formData.description,
+        location: formData.address,
+        intake_channel: intakeChannelMap[formData.source] || 'website'
+      };
+
       const response = await fetch('/api/complaints/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
 
       const data = await response.json();
-      if (data.id) {
-        setComplaintId(data.id);
+      if (data.complaint_id) {
+        setComplaintId(data.complaint_id);
         setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 5000);
+        setTimeout(() => setSubmitted(false), 6000);
         setFormData({ name: '', phone: '', email: '', ward: '', source: 'Web form', address: '', category: '', description: '' });
+      } else {
+        setError(data.error || 'Failed to submit complaint. Please try again.');
       }
-    } catch (error) {
-      console.error('Error submitting complaint:', error);
+    } catch (err) {
+      console.error('[v0] Error submitting complaint:', err);
+      setError('Network error. Please check your connection and try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -100,6 +147,22 @@ export default function SubmitTab() {
           gridColumn: '1 / -1'
         }}>
           ✓ Complaint submitted successfully! Your ID: <strong>{complaintId}</strong>
+        </div>
+      )}
+      
+      {error && (
+        <div style={{
+          background: '#ffe8e8',
+          color: '#c00',
+          padding: '12px 16px',
+          borderRadius: 'var(--radius)',
+          fontSize: '13px',
+          marginBottom: '12px',
+          fontWeight: 500,
+          border: '1px solid rgba(204,0,0,0.2)',
+          gridColumn: '1 / -1'
+        }}>
+          ⚠ {error}
         </div>
       )}
 
@@ -382,28 +445,34 @@ export default function SubmitTab() {
 
           <button
             onClick={handleSubmit}
+            disabled={isLoading}
             style={{
               width: '100%',
               padding: '12px',
               border: 'none',
               borderRadius: 'var(--radius)',
-              background: 'var(--navy)',
-              color: '#fff',
+              background: isLoading ? '#ccc' : 'var(--navy)',
+              color: isLoading ? '#666' : '#fff',
               fontSize: '14px',
               fontWeight: 700,
               fontFamily: 'var(--font)',
-              cursor: 'pointer',
+              cursor: isLoading ? 'not-allowed' : 'pointer',
               transition: 'background 0.15s',
-              letterSpacing: '0.02em'
+              letterSpacing: '0.02em',
+              opacity: isLoading ? 0.7 : 1
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as any).style.background = 'var(--navy2)';
+              if (!isLoading) {
+                (e.currentTarget as any).style.background = 'var(--navy2)';
+              }
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as any).style.background = 'var(--navy)';
+              if (!isLoading) {
+                (e.currentTarget as any).style.background = 'var(--navy)';
+              }
             }}
           >
-            Submit & get Complaint ID →
+            {isLoading ? 'Submitting...' : 'Submit & get Complaint ID →'}
           </button>
         </div>
       </div>

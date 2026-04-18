@@ -16,8 +16,24 @@ export default function LoginModal({ isOpen, type, onClose }: LoginModalProps) {
 
   const handleLogin = () => {
     // Demo credentials
-    if ((loginType === 'officer' && id === 'VMC-OFF-042' && password === '1234') ||
-        (loginType === 'admin' && id === 'VMC-ADM-001' && password === '1234')) {
+    const validOfficer = loginType === 'officer' && id === 'VMC-OFF-042' && password === '1234';
+    const validAdmin = loginType === 'admin' && id === 'VMC-ADM-001' && password === '1234';
+    
+    if (validOfficer || validAdmin) {
+      // Create a session token
+      const sessionToken = btoa(JSON.stringify({
+        id: id,
+        type: loginType,
+        role: loginType === 'admin' ? 'admin' : 'officer',
+        loginTime: new Date().toISOString(),
+        expiresIn: 24 * 60 * 60 * 1000 // 24 hours
+      }));
+      
+      // Store session in sessionStorage
+      sessionStorage.setItem('vmc_session', sessionToken);
+      sessionStorage.setItem('vmc_user_id', id);
+      sessionStorage.setItem('vmc_user_type', loginType);
+      
       // Redirect to dashboard
       window.location.href = '/dashboard';
     } else {
@@ -247,7 +263,7 @@ export default function LoginModal({ isOpen, type, onClose }: LoginModalProps) {
             (e.currentTarget as any).style.background = 'var(--navy)';
           }}
         >
-          Login →
+          Login ���
         </button>
 
         <div style={{
