@@ -152,6 +152,7 @@ export default function Home() {
           gap: 0;
           border-bottom: 2px solid var(--off2);
           margin-bottom: 0;
+          overflow-x: auto;
         }
 
         .tab {
@@ -163,6 +164,8 @@ export default function Home() {
           border-bottom: 2px solid transparent;
           margin-bottom: -2px;
           transition: all 0.15s;
+          white-space: nowrap;
+          flex-shrink: 0;
         }
 
         .tab.active {
@@ -178,14 +181,54 @@ export default function Home() {
           .dev-grid {
             grid-template-columns: repeat(2, 1fr);
           }
+          .wrap {
+            padding: 0 16px;
+          }
+          .main-area {
+            padding: 16px 0 0;
+          }
         }
 
         @media (max-width: 680px) {
           .dev-grid {
             grid-template-columns: 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+          }
+          .dev-card {
+            padding: 12px;
           }
           .tabs {
             flex-wrap: wrap;
+            margin-bottom: 12px;
+          }
+          .tab {
+            padding: 8px 12px;
+            font-size: 12px;
+          }
+          .wrap {
+            padding: 0 12px;
+          }
+          .section-label {
+            margin-bottom: 10px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .dev-grid {
+            gap: 8px;
+          }
+          .dev-card {
+            padding: 10px;
+          }
+          .dev-title {
+            font-size: 12px;
+          }
+          .dev-body {
+            font-size: 11px;
+          }
+          .wrap {
+            padding: 0 10px;
           }
         }
       `}</style>

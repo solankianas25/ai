@@ -47,13 +47,14 @@ export default function LoginModal({ isOpen, type, onClose }: LoginModalProps) {
   return (
     <div
       style={{
-        display: 'fixed',
         position: 'fixed',
         inset: 0,
         background: 'rgba(10,34,64,0.7)',
         zIndex: 1000,
+        display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        padding: '20px'
       }}
       onClick={onClose}
     >
@@ -61,7 +62,7 @@ export default function LoginModal({ isOpen, type, onClose }: LoginModalProps) {
         style={{
           background: '#fff',
           borderRadius: '16px',
-          padding: '32px 28px',
+          padding: '28px 24px',
           width: '100%',
           maxWidth: '360px',
           position: 'relative',

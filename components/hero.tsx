@@ -4,7 +4,7 @@ export default function HeroSection({ onTabChange }: { onTabChange: (tab: string
       background: 'linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,#1a3060 100%)',
       color: '#fff',
       borderRadius: '16px',
-      padding: '36px 32px',
+      padding: 'clamp(20px, 8vw, 36px) clamp(16px, 6vw, 32px)',
       marginBottom: '20px',
       position: 'relative',
       overflow: 'hidden'
@@ -44,13 +44,13 @@ export default function HeroSection({ onTabChange }: { onTabChange: (tab: string
 
         <h1 style={{
           fontFamily: 'var(--font-display)',
-          fontSize: '30px',
+          fontSize: 'clamp(20px, 6vw, 30px)',
           lineHeight: 1.2,
           marginBottom: '10px'
         }}>Baroda — <span style={{ color: 'var(--saffron2)' }}>City of Culture</span> &amp; Progress</h1>
 
         <p style={{
-          fontSize: '13px',
+          fontSize: 'clamp(12px, 3vw, 13px)',
           opacity: 0.75,
           lineHeight: 1.75,
           maxWidth: '520px',
@@ -58,7 +58,7 @@ export default function HeroSection({ onTabChange }: { onTabChange: (tab: string
         }}>Vadodara, Gujarat&apos;s third-largest and fastest-growing city, is a vibrant hub of heritage, industry, and civic excellence. VMC proudly serves over 20 lakh citizens across 76 wards, delivering smart, transparent, and responsive municipal services.</p>
 
         {/* CTA Buttons */}
-        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '24px' }}>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
           <button
             onClick={() => onTabChange('submit')}
             style={{
