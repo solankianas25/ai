@@ -126,48 +126,42 @@ export async function POST(request: NextRequest) {
 }
 
 /**
- * Process complaint with AI for classification, duplicate detection, priority
+ * Process complaint with AI for classification and priority assessment
  */
 async function processComplaintWithAI(complaintId: string, description: string) {
   try {
-    const supabase = getSupabaseAdmin();
-    const useMock = process.env.USE_MOCK_AI === 'true';
-
-    if (useMock) {
-      // Mock AI processing
-      const mockResult = {
-        category: 'roads',
-        priority: 'high',
-        confidence: 0.85,
-        isDuplicate: false,
-      };
-
-      await supabase.from('ai_processing_log').insert({
+    // Call AI processing endpoint asynchronously (fire and forget)
+    // In production, this would be queued via a job queue service
+    
+    // Classification
+    fetch('http://localhost:3000/api/ai/process', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
         complaint_id: complaintId,
-        ai_model: 'mock',
+        text: description,
         processing_type: 'classification',
-        input_data: { description },
-        output_data: mockResult,
-        confidence_score: mockResult.confidence,
-        is_mock: true,
-      });
+      }),
+    }).catch((err) => {
+      console.log('[v0] Background AI classification failed (non-critical):', err.message);
+    });
 
-      // Update complaint with AI results
-      await supabase
-        .from('complaints')
-        .update({
-          ai_category: mockResult.category,
-          ai_priority: mockResult.priority,
-          ai_confidence: mockResult.confidence,
-        })
-        .eq('id', complaintId);
-    } else {
-      // Real AI processing would go here
-      // For now, placeholder
-      console.log('[v0] AI processing would be triggered for complaint:', complaintId);
-    }
+    // Priority assessment
+    fetch('http://localhost:3000/api/ai/process', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        complaint_id: complaintId,
+        text: description,
+        processing_type: 'priority_assessment',
+      }),
+    }).catch((err) => {
+      console.log('[v0] Background AI priority assessment failed (non-critical):', err.message);
+    });
+
+    console.log('[v0] AI processing triggered for complaint:', complaintId);
   } catch (error) {
-    console.error('AI processing error:', error);
+    console.error('[v0] AI processing error:', error);
     // Don't fail the complaint creation if AI processing fails
   }
 }
