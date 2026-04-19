@@ -109,6 +109,7 @@ export default function HeroSection({ onTabChange }: { onTabChange: (tab: string
             Track my complaint
           </button>
           <button
+            onClick={() => onTabChange('channels')}
             style={{
               padding: '11px 22px',
               borderRadius: 'var(--radius)',

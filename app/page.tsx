@@ -6,6 +6,7 @@ import HeroSection from '@/components/hero';
 import SubmitTab from '@/components/submit-tab';
 import TrackTab from '@/components/track-tab';
 import StatsTab from '@/components/stats-tab';
+import ChannelsTab from '@/components/channels-tab';
 import Footer from '@/components/footer';
 
 export default function Home() {
@@ -69,6 +70,12 @@ export default function Home() {
               Track complaint
             </div>
             <div 
+              className={`tab ${activeTab === 'channels' ? 'active' : ''}`}
+              onClick={() => setActiveTab('channels')}
+            >
+              All channels
+            </div>
+            <div 
               className={`tab ${activeTab === 'stats' ? 'active' : ''}`}
               onClick={() => setActiveTab('stats')}
             >
@@ -79,6 +86,7 @@ export default function Home() {
           {/* Tab Content */}
           {activeTab === 'submit' && <SubmitTab />}
           {activeTab === 'track' && <TrackTab />}
+          {activeTab === 'channels' && <ChannelsTab onChannelSelect={(channel) => setActiveTab(channel)} />}
           {activeTab === 'stats' && <StatsTab />}
         </div>
       </div>
@@ -86,13 +94,16 @@ export default function Home() {
 
       <style jsx>{`
         .main-area {
-          padding: 24px 0 0;
+          padding: 20px 0 0;
+          background: white;
         }
 
         .wrap {
           max-width: 1140px;
           margin: 0 auto;
           padding: 0 20px;
+          display: flex;
+          flex-direction: column;
         }
 
         .section-label {
@@ -101,22 +112,30 @@ export default function Home() {
           letter-spacing: 0.09em;
           text-transform: uppercase;
           color: var(--text3);
-          margin-bottom: 12px;
+          margin-bottom: 14px;
+          margin-top: 20px;
+        }
+        
+        .section-label:first-of-type {
+          margin-top: 0;
         }
 
         .dev-grid {
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 10px;
-          margin-bottom: 20px;
+          gap: 12px;
+          margin-bottom: 28px;
         }
 
         .dev-card {
           background: white;
           border: 0.5px solid var(--border);
           border-radius: var(--radius-lg);
-          padding: 16px;
+          padding: 18px;
           transition: transform 0.15s, box-shadow 0.15s;
+          display: flex;
+          flex-direction: column;
+          height: 100%;
         }
 
         .dev-card:hover {
@@ -125,47 +144,52 @@ export default function Home() {
         }
 
         .dev-icon {
-          width: 38px;
-          height: 38px;
+          width: 40px;
+          height: 40px;
           border-radius: var(--radius);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 18px;
-          margin-bottom: 10px;
+          font-size: 20px;
+          margin-bottom: 12px;
+          flex-shrink: 0;
         }
 
         .dev-title {
           font-size: 13px;
           font-weight: 700;
-          margin-bottom: 4px;
+          margin-bottom: 6px;
+          color: var(--navy);
         }
 
         .dev-body {
           font-size: 12px;
           color: var(--text2);
           line-height: 1.6;
+          flex-grow: 1;
         }
 
         .tabs {
           display: flex;
           gap: 0;
           border-bottom: 2px solid var(--off2);
-          margin-bottom: 0;
+          margin-bottom: 24px;
           overflow-x: auto;
+          margin-top: 24px;
         }
 
         .tab {
-          padding: 10px 18px;
+          padding: 12px 20px;
           cursor: pointer;
           font-size: 13px;
           font-weight: 600;
           color: var(--text3);
-          border-bottom: 2px solid transparent;
+          border-bottom: 3px solid transparent;
           margin-bottom: -2px;
           transition: all 0.15s;
           white-space: nowrap;
           flex-shrink: 0;
+          position: relative;
         }
 
         .tab.active {
@@ -175,6 +199,7 @@ export default function Home() {
 
         .tab:hover:not(.active) {
           color: var(--text);
+          background: var(--off);
         }
 
         @media (max-width: 900px) {
